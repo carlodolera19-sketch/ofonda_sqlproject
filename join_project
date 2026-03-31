@@ -1,0 +1,87 @@
+  CREATE DATABASE ofonda_gilbert;
+use ofonda_gilbert;
+
+CREATE TABLE patients(
+    patient_id int,
+    patient_name varchar(50),
+     city varchar(50),
+      contact_number varchar(50)
+ 
+);
+
+ INSERT INTO patients VALUES
+  (101  , "maria santos" , "cebu"  , "09123456781"),
+  (102  , "juan dela cruz" , " bohol" , "09123456782"),
+  (103   , "ana reyes"  , "cebu" , "0912345783"),
+  (104  , "mark lopes" , "dumaguete" , "09123456784"),
+  (105  ,  "carla gomez" ,"bohol" , " 09123456785");
+ 
+ 
+  CREATE TABLE appointments(
+   appointment_id int,
+    patient_id int,
+      doctor_name varchar(50),
+     appointment_date DATE,
+      status varchar(50)
+ 
+  );
+ 
+  INSERT INTO appointments VALUES
+  (201,101 , "Dr.Garcia" , "2025-03-10" , "Completed"),
+  (202,102 , "Dr.Ramos"  , "2025-03-11" , "Scheduled"),
+  (203,101  , "Dr.cruz" , "2025-03-15" , "Scheduled"),
+  (204,103  , "Dr.garcia" , "2025-03-18" , "Cancelled"),
+  (205,106   , "Dr.Ramos" , "2025-03-20" , "Scheduled");
+
+
+
+
+
+
+
+ Students must write SQL queries to answer the following:
+Part A – Basic Join
+
+Display the patient name and doctor name for all appointments.
+ 
+   SELECT patients.patient_name , appointments.doctor_name ,appointments.appointment_date
+ FROM patients
+ INNER JOIN appointments on patients.patient_id = appointments.patient_id;
+
+
+
+
+Part B – Filtering with Join
+  Display all patients from Cebu and their appointments.
+    SELECT patients.patient_name , appointments.appointment_date
+ FROM patients
+ INNER JOIN appointments
+ ON patients.patient_id = appointments.patient_id
+ WHERE patients.city = "cebu";
+
+
+
+Display appointments handled by Dr. Garcia with the patient names.
+ SELECT patients.patient_name , appointments.doctor_name
+ FROM patients
+ INNER JOIN appointments
+ ON patients.patient_id = appointments.patient_id
+ WHERE appointments.doctor_name = "dr.garcia";
+
+
+Part C – Analytical Queries
+
+Show all patients and their appointments, including patients who do not have appointments.
+ SELECT patients.patient_name , appointments.doctor_name , appointments.appointment_date
+ FROM patients
+ LEFT JOIN appointments
+ ON patients.patient_id = appointments.patient_id;
+ 
+
+   Show all appointments even if the patient information does not exist in the Patients table.
+
+   SELECT patients.patient_name , appointments.doctor_name , appointments.appointment_date
+ FROM patients
+ RIGHT JOIN appointments
+ ON patients.patient_id = appointments.patient_id;
+ 
